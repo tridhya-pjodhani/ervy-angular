@@ -267,7 +267,7 @@ Navbar Area CSS
 }
 
 .exto-nav {
-  background-color: transparent;
+  background-color: white;
   padding-top: 15px;
   padding-bottom: 15px;
   padding-right: 0;
@@ -6423,7 +6423,7 @@ Page Title Area CSS
 .page-title-area {
   position: relative;
   z-index: 1;
-  background-image: url(../../assets/img/page-title-bg.jpg);
+  background-image: url('https://ervy-ng.hibootstrap.com/page-title-bg.jpg');
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -6863,15 +6863,13 @@ Login In Style CSS
   color: #fd5a0e;
 }
 
-.login-form form span {
-  display: block;
+.login-form form p {
   color: #777777;
-  position: absolute;
   bottom: 22px;
   right: 15px;
 }
 
-.login-form form span a {
+.login-form form p a {
   color: #fd5a0e;
 }
 
@@ -6972,7 +6970,7 @@ Sign Up Style CSS
   color: #fd5a0e;
 }
 
-.signup-form form span {
+.signup-form form p {
   display: block;
   color: #666666;
   position: absolute;
@@ -6980,7 +6978,7 @@ Sign Up Style CSS
   right: 15px;
 }
 
-.signup-form form span a {
+.signup-form form p a {
   color: #fd5a0e;
 }
 
