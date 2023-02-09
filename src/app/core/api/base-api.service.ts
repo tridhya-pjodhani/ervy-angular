@@ -11,18 +11,15 @@ export type Methods = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 @Injectable({ providedIn: 'root' })
 export class BaseApiService {
-    
-    @BlockUI() blockUI: NgBlockUI;
-
     protected headers = new HttpHeaders({
         'Content-Type': 'application/json'
     });
 
-    constructor(protected http: HttpClient, private _toasterService: ToastrService, private _jwtService: JwtService) {}
+    constructor(protected http: HttpClient, private toasterService: ToastrService, private jwtService: JwtService) {}
 
     public makeRequest<T>(method: Methods, endpoint: any, params?: any, responseType?: 'json', headers?: HttpHeaders): Observable<T> {
         const urlParams = this.getUrlParams(params, method);
-        const url = API_LINK_URL +`${endpoint}${urlParams}`;
+        const url = API_LINK_URL + `${endpoint}${urlParams}`;
 
         const options = {
             body: params,
@@ -31,24 +28,23 @@ export class BaseApiService {
         };
 
         return new Observable<T>(subscriber => {
-            this.blockUI.start('Loading...');
+            // Spinner Start
             this.http.request<T>(method, url, options).pipe(
                 catchError(this.showHttpError())
             ).subscribe((res: any) => {
-                console.log('res of ' + endpoint + ' API >>' , res)
+                console.log('res of ' + endpoint + ' API >>' , res);
                 this.showToaster(res, method);
-                this.blockUI.stop();
+                // Spinner Stop
                 subscriber.next(res);
                 subscriber.complete();
             },
             error => {
                 console.log('error :>> ', error);
                 // this.customErrorHandler(error);
-                this.blockUI.stop();
+                // Spinner Stop
                 subscriber.error(error);
             });
-
-        })
+        });
     }
 
     private getUrlParams(params: any, type: any): string {
@@ -73,30 +69,30 @@ export class BaseApiService {
     }
 
     private showToaster(response: any, method: Methods){
-        if(response == undefined || response == null || method == 'GET') return;
-        
+        if (response === undefined || response == null || method === 'GET') { return; }
+
         const successMsg = !!response.message ? response.message : 'Success';
-        if(response?.status == 1){
-            this._toasterService.success('',successMsg, { toastClass: 'toast ngx-toastr', closeButton: true })
+        if (response?.status === 1){
+            this.toasterService.success('', successMsg, { toastClass: 'toast ngx-toastr', closeButton: true });
         }
-        if(response?.status == 0 ){
-            this._toasterService.error('', response.message, { toastClass: 'toast ngx-toastr', closeButton: true })
+        if (response?.status === 0 ){
+            this.toasterService.error('', response.message, { toastClass: 'toast ngx-toastr', closeButton: true });
         }
     }
 
     private customErrorHandler(error: any){
         const err = !!error ? error : 'Something went wrong';
-        this._toasterService.error('',error, { toastClass: 'toast ngx-toastr', closeButton: true });
+        this.toasterService.error('', error, { toastClass: 'toast ngx-toastr', closeButton: true });
     }
 
     private showHttpError(){
         return (error: HttpErrorResponse | any): Observable<any> => {
-            if( error == 'Unauthorized, please login.'){
-                this._jwtService.clearStorage();
+            if ( error === 'Unauthorized, please login.'){
+                this.jwtService.clearStorage();
             }
-            this.blockUI.stop();
+            // Spinner Stop
             return throwError(error);
-        }
+        };
       }
 }
 
