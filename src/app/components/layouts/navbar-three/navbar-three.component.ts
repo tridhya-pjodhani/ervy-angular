@@ -9,9 +9,11 @@ import { AuthenticationService } from '../../services/authentication.service';
 export class NavbarThreeComponent implements OnInit {
 
   isLogin: boolean = false;
+  currentUser: any;
 
   constructor(private _authenticationService: AuthenticationService) { 
     if (this._authenticationService.currentUserValue) {
+      this.currentUser = this._authenticationService?.currentUserValue;      
       this.isLogin = true;
     }
   }

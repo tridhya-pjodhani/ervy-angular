@@ -15,6 +15,7 @@ import { ProjectsDetailsComponent } from './components/pages/projects-details/pr
 import { ServicesComponent } from './components/pages/services/services.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { StartupHomeComponent } from './components/pages/startup-home/startup-home.component';
+import { ProfileComponent } from './components/pages/profile/profile.component';
 
 const routes: Routes = [
     {path: '', component: StartupHomeComponent},
@@ -32,6 +33,7 @@ const routes: Routes = [
     {path: 'blog', component: BlogComponent},
     {path: 'blog-details', component: BlogDetailsComponent},
     {path: 'contact', component: ContactComponent},
+    {path: 'profile', component: ProfileComponent},
     {path: '**', component: ErrorComponent}
 ];
 

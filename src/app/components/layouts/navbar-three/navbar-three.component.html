@@ -47,23 +47,50 @@
                                 [routerLinkActiveOptions]="{exact: true}">Contact</a></li>
 
                         <li class="nav-item d-none d-sm-block position-absolute" *ngIf="!isLogin"
-                            style="right:0;cursor: pointer;"><a routerLink="/login" class="nav-link"
-                                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Log
-                                in</a></li>
+                            style="right:0;cursor: pointer; top: -8px;"><button routerLink="/login" class="btn btn-primary btn-sm nav-link px-4"
+                                style="color: white;" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Log
+                                in</button></li>
 
                         <li class="nav-item d-sm-none d-block" *ngIf="!isLogin" style="cursor: pointer;"><a
                                 routerLink="/login" class="nav-link" routerLinkActive="active"
                                 [routerLinkActiveOptions]="{exact: true}">Log
                                 in</a></li>
 
-                        <li class="nav-item d-none d-sm-block position-absolute" *ngIf="isLogin"
+                        <!-- <li class="nav-item d-none d-sm-block position-absolute"  
                             style="right:0;cursor: pointer;" (click)="logout()">
-                            <a class="nav-link">Log out</a>
+                            <a class="nav-link">Log out</a> -->
 
-                        <li class="nav-item d-sm-none d-block" *ngIf="isLogin"
-                            style="cursor: pointer;" (click)="logout()">
-                            <a class="nav-link">Log out</a>
-                        </li>
+                            <ul style="right:0;cursor: pointer; top: -12px;" class="navbar-nav d-none d-sm-flex position-absolute align-items-center" *ngIf="isLogin">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <div class="media align-items-center d-flex">
+                                            <span class="avatar avatar-sm rounded-circle me-3">
+                                                <img alt="Image placeholder" width="50" height="50" style=" border-radius: 50%;"
+                                                    src="https://demos.creative-tim.com/argon-dashboard/assets-old/img/theme/team-4.jpg">
+                                            </span>
+                                            <div class="media-body ml-2 d-none d-lg-block">
+                                                <span class="mb-0 text-sm  font-weight-bold">{{currentUser.first_name + " " + currentUser.last_name}}</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-arrow p-2 dropdown-menu-right">
+                                        <a routerLink="/profile" class="dropdown-item p-2">
+                                            <i class="ni ni-single-02"></i>
+                                            <span>My profile</span>
+                                        </a>
+                                        <a href="../examples/profile.html" class="dropdown-item p-2">
+                                            <i class="ni ni-settings-gear-65"></i>
+                                            <span>Settings</span>
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item p-2" (click)="logout()">
+                                            <i class="ni ni-user-run"></i>
+                                            <span>Logout</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
                     </ul>
                 </div>
             </nav>

@@ -28,6 +28,7 @@ import { ErrorInterceptor, JwtInterceptor } from './components/helpers';
 import { ToastrModule } from 'ngx-toastr';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { StartupHomeComponent } from './components/pages/startup-home/startup-home.component';
+import { ProfileComponent } from './components/pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { StartupHomeComponent } from './components/pages/startup-home/startup-ho
     ProductsDetailsComponent,
     BlogComponent,
     BlogDetailsComponent,
-    ContactComponent
+    ContactComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
