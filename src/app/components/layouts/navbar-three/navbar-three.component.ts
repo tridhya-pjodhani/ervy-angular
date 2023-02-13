@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-navbar-three',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarThreeComponent implements OnInit {
 
-  constructor() { }
+  isLogin: boolean = false;
+
+  constructor(private _authenticationService: AuthenticationService) { 
+    if (this._authenticationService.currentUserValue) {
+      this.isLogin = true;
+    }
+  }
 
   ngOnInit(): void {
+  }
+
+  logout(){
+    this._authenticationService.logout();
+    this.isLogin = this._authenticationService.getAuthStatus();
   }
 
 }

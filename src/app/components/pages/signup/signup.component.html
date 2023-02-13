@@ -21,24 +21,81 @@
     <div class="container">
         <div class="signup-form">
             <h3>Create your Account</h3>
-            
-            <form>
+
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Username">
+                            <input type="text" formControlName="first_name" class="form-control"
+                                placeholder="First Name" aria-describedby="register-first-name" tabindex="2"
+                                [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }" />
+                            <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
+                                <div *ngIf="f.first_name.errors.required">First Name is required</div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email">
+                            <input type="text" formControlName="last_name" class="form-control" placeholder="Last Name"
+                                aria-describedby="register-last-name" tabindex="3"
+                                [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }" />
+                            <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
+                                <div *ngIf="f.last_name.errors.required">Last Name is required</div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input type="email" formControlName="email" class="form-control"
+                                placeholder="john@example.com" aria-describedby="register-email" tabindex="4"
+                                [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                        </div>
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <input [type]="passwordTextType ? 'text' : 'password'" formControlName="password"
+                                class="form-control form-control-merge" placeholder="Password"
+                                aria-describedby="register-password" tabindex="5"
+                                [ngClass]="{ 'is-invalid error': submitted && f.password.errors }" />
+                            <div class="input-group-append">
+                                <span class="input-group-text cursor-pointer"><i class="feather font-small-4" [ngClass]="{
+                                      'icon-eye-off': passwordTextType,
+                                      'icon-eye': !passwordTextType
+                                    }" (click)="togglePasswordTextType()"></i></span>
+                            </div>
+                        </div>
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback"
+                            [ngClass]="{ 'd-block': submitted && f.password.errors }">
+                            <div *ngIf="f.password.errors.required">Password is required</div>
+                            <div *ngIf="f.password.errors.minlength">Password must be a min 6 Character</div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirm_password"
+                                class="form-control form-control-merge" placeholder="Confirm Password"
+                                aria-describedby="register-password" tabindex="5"
+                                [ngClass]="{ 'is-invalid error': submitted && f.confirm_password.errors }" />
+                            <div class="input-group-append">
+                                <span class="input-group-text cursor-pointer"><i class="feather font-small-4" [ngClass]="{
+                                      'icon-eye-off': showConfirmPassword,
+                                      'icon-eye': !showConfirmPassword
+                                    }" (click)="toggleConfirmPassword()"></i></span>
+                            </div>
+                        </div>
+                        <div *ngIf="submitted && f.confirm_password.errors" class="invalid-feedback"
+                            [ngClass]="{ 'd-block': submitted && f.confirm_password.errors }">
+                            <div *ngIf="f.confirm_password.errors.required">Confirm Password is required</div>
+                            <div *ngIf="f.confirm_password.errors.mustMatch">Password and Confirm Passwords must match
+                            </div>
                         </div>
                     </div>
 
@@ -51,7 +108,7 @@
 
                     <div class="col-lg-12">
                         <div class="send-btn">
-                            <a routerLink="/" class="default-btn-one">Signup Now</a>
+                            <button class="default-btn-one">Signup Now</button>
                         </div>
                         <br>
                         <p>Already a registered user? <a routerLink="/login">Login!</a></p>

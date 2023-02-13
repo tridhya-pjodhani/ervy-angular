@@ -73,16 +73,16 @@ export class BaseApiService {
 
         const successMsg = !!response.message ? response.message : 'Success';
         if (response?.status === 1){
-            this.toasterService.success('', successMsg, { toastClass: 'toast ngx-toastr', closeButton: true });
+            this.toasterService.success('', successMsg);
         }
         if (response?.status === 0 ){
-            this.toasterService.error('', response.message, { toastClass: 'toast ngx-toastr', closeButton: true });
+            this.toasterService.error('', response.message);
         }
     }
 
     private customErrorHandler(error: any){
         const err = !!error ? error : 'Something went wrong';
-        this.toasterService.error('', error, { toastClass: 'toast ngx-toastr', closeButton: true });
+        this.toasterService.error('', error);
     }
 
     private showHttpError(){

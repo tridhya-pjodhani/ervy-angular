@@ -23,19 +23,31 @@
             <div class="login-title">
                 <h3>Welcome Back!</h3>
                 <p>Please login to your account.</p>
-            </div>      
+            </div>
 
-            <form>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email">
+                            <input type="email" formControlName="email"
+                                [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="form-control"
+                                aria-describedby="login-email" autofocus="" tabindex="1" placeholder="admin@demo.com" />
+                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                <div *ngIf="f.email.errors.required">Email is required</div>
+                                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input type="password" formControlName="password" class="form-control form-control-merge"
+                                [ngClass]="{ 'is-invalid error': submitted && f.password.errors }"
+                                placeholder="Password" aria-describedby="login-password" tabindex="2" />
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback"
+                                [ngClass]="{ 'd-block': submitted && f.password.errors }">
+                                <div *ngIf="f.password.errors.required">Password is required</div>
+                            </div>
                         </div>
                     </div>
 
@@ -48,13 +60,13 @@
 
                     <div class="col-lg-12 text-end">
                         <p class="forgot-password">
-                            <a routerLink="/">Forgot Password?</a>
+                            <a routerLink="/auth/forgot-password">Forgot Password?</a>
                         </p>
                     </div>
 
                     <div class="col-lg-12">
                         <div class="send-btn">
-                            <a routerLink="/" class="default-btn-one">Login Now</a>
+                            <button type="submit" class="default-btn-one">Login Now</button>
                         </div>
                         <br>
                         <p>Don't have account? <a routerLink="/signup">Signup!</a></p>
