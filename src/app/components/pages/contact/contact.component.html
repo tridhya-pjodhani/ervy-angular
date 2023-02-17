@@ -66,46 +66,52 @@
         </div>
 
         <div class="contact-form">
-            <form id="contactForm">
+            <form id="contactForm" [formGroup]="createContactUsForm">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <input type="text" name="name" id="name" class="form-control" placeholder="Name">
+                            <input type="text" name="name" id="name" formControlName="username" class="form-control"
+                                placeholder="Name" [ngClass]="{'is-invalid': submitted && f.username.errors}">
+                            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                <div *ngIf="f.username.errors.required">Username is required</div>
+                            </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <input type="email" name="email" id="email" class="form-control" placeholder="Email">
-                        </div>
-                    </div>
-                    
-                    <!-- <div class="col-lg-6">
-                        <div class="form-group">
-                            <input type="text" name="phone_number" class="form-control" placeholder="Phone">
-                        </div>
-                    </div> -->
-                    
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <input type="text" name="subject" id="subject" class="form-control" placeholder="Subject">
+                            <input type="email" name="email" id="email" formControlName="email" class="form-control"
+                                placeholder="Email" [ngClass]="{'is-invalid': submitted && f.email.errors}">
+                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                <div *ngIf="f.email.errors.required">Email is required</div>
+                                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <input type="file" name="image" id="image" class="form-control">
+                            <input type="file" name="image" id="image" class="form-control"
+                            (change)="onImagChangeFromFile($event)" [ngClass]="{'is-invalid': submitted && f.contactUsImage.errors}">
+                            <div *ngIf="submitted && f.contactUsImage.errors" class="invalid-feedback">
+                                <div *ngIf="f.contactUsImage.errors.required">Image is required</div>
+                            </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <textarea name="message" class="form-control" cols="30" rows="6" placeholder="Your Message"></textarea>
+                            <textarea name="message" class="form-control" cols="30" rows="6" formControlName="query"
+                                placeholder="Your Message"
+                                [ngClass]="{'is-invalid': submitted && f.query.errors}"></textarea>
+                            <div *ngIf="submitted && f.query.errors" class="invalid-feedback">
+                                <div *ngIf="f.query.errors.required">Message is required</div>
+                            </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-lg-12">
-                        <button type="submit" class="default-btn">Send Message</button>
+                        <button type="submit" (click)="submitData()" class="default-btn">Send Message</button>
                     </div>
                 </div>
             </form>

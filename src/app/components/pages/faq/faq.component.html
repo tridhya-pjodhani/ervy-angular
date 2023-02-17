@@ -26,25 +26,12 @@
 
         <div class="faq-accordion">
             <ul class="accordion">
-                <li class="accordion-item">
-                    <a class="accordion-title active" href="javascript:void(0)"><i class="fa fa-plus"></i> A satisfied customer is the best business strategies</a>
-                    <p class="accordion-content show">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                </li>
-
-                <li class="accordion-item">
-                    <a class="accordion-title" href="javascript:void(0)"><i class="fa fa-plus"></i> We challenge everything</a>
-                    <p class="accordion-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                </li>
-
-                <li class="accordion-item">
-                    <a class="accordion-title" href="javascript:void(0)"><i class="fa fa-plus"></i> Cooperation is our best policy</a>
-                    <p class="accordion-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                </li>
-
-                <li class="accordion-item">
-                    <a class="accordion-title" href="javascript:void(0)"><i class="fa fa-plus"></i> Read the most popular Medical News & Article?</a>
-                    <p class="accordion-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                </li>
+                <ng-container *ngFor="let question of questionList; let i=index">
+                    <li class="accordion-item" (click)="activeTab = i">
+                        <a class="accordion-title" [ngClass]="[ activeTab == i || questionList.length == 1 ? 'active': '']" href="javascript:void(0)"><i class="fa fa-plus"></i>{{question?.questionText}}</a>
+                        <p class="accordion-content" [ngClass]="[ activeTab == i || questionList.length == 1  ? 'show': '']" >{{question?.answer}}</p>
+                    </li>
+                </ng-container>
             </ul>
         </div>
     </div>

@@ -1,3 +1,4 @@
+import { BaseApiService } from './../../../core/api/base-api.service';
 import { Component, OnInit } from '@angular/core';
 import { FaqService } from '../../services/faq.service';
 
@@ -8,12 +9,21 @@ import { FaqService } from '../../services/faq.service';
 })
 export class FaqComponent implements OnInit {
 
-  constructor(private faqService : FaqService) { }
+  questionList: any;
+  activeTab: any;
+
+  constructor(private faqService : FaqService, private baseApiService: BaseApiService) { }
 
   ngOnInit(): void {
     this.faqService.getFaqList().subscribe( response => {
       console.log(response);
+      if(response.status && response.data.length > 0){
+        this.questionList = response.data;
+      }
     })
   }
 
+  getFaqList(): void{
+
+  }
 }
